@@ -4,37 +4,42 @@ import java.util.*; // contains Collections framework
 // don't change the name of this class
 // you can add inner classes if needed
 class Main {
-    public static int gcd(int a, int b){
-        int dividend = a, divisor= b;
-        while(dividend % divisor >0){
-            int rem = dividend % divisor;
-            dividend = divisor;
-            divisor = rem;
-        }
-        return divisor;
-    }
-    public static int gcdArr(int arr[])
+	public static int findMaxGCD(int arr[], int n)
     {
-        int max = 1;
-        //int result = arr[0];
-       for (int i=0;i<arr.length;i++){
-           for (int j=0; j<arr.length-1;j++){
-              int result= gcd(arr[i],arr[j]);
-
-              if (max<result && i !=j) max= result;
-           }
-       }
-       return max;
-    }
-    public static void main (String[] args) {
-        // Your code here
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int arr[]= new int[N];
-        for (int i=0;i<arr.length;i++){
-            arr[i] =sc.nextInt();
-
+        int high = 0;
+        for (int i = 0; i < n; i++)
+            high = Math.max(high, arr[i]);
+      
+        int divisors[] =new int[high + 1];
+      
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 1; j <= Math.sqrt(arr[i]); j++)
+            {
+                if (arr[i] % j == 0)
+                {
+                    divisors[j]++;
+      
+                    if (j != arr[i] / j)
+                        divisors[arr[i] / j]++;
+                }
+            }
         }
-        System.out.print(gcdArr(arr));
+      
+        for (int i = high; i >= 1; i--)
+            if (divisors[i] > 1)
+                return i;
+        return 1;
     }
+
+	public static void main (String[] args) {
+                      // Your code here
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int arr[] = new int[n];
+		for(int i=0; i<n; i++){
+			arr[i] = sc.nextInt();
+		}
+		System.out.print(findMaxGCD(arr,n));
+	}
 }
