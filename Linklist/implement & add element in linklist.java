@@ -1,8 +1,8 @@
-class Main{
+class IDE{
     public static void main(String[] args) {
         Linklist ll = new Linklist();
         int k=4;
-        ll.display();
+//        ll.display();
         ll.add(0);
         ll.add(1);
         ll.add(2);
@@ -10,9 +10,10 @@ class Main{
         ll.add(4);
         ll.add(5);
         ll.add(8);
-        ll.display();
+//        ll.display();
         System.out.println();
-        ll.kth(ll.head,k);
+//        ll.kth(ll.head,k);
+        ll.reverse(ll.head);
         ll.display();
 
 
@@ -67,6 +68,21 @@ class Linklist{
        }
        tr.next= null;
        return  head;
+    }
+
+    //reverse the linklist
+    public Node reverse(Node head){
+        Node curr = head;
+        Node prev = null;
+
+        while(curr != null) {
+            Node next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        this.head= prev;
+        return head;
     }
 
 }
